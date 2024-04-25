@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Magic Age Finder</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  <link href="https://cdn.jsdelivr.net/npm/canvas-confetti@1.0.1/dist/confetti.min.css" rel="stylesheet">
+</head>
+<body>
+  <header class="header fs-1 fw-bolder text-center py-3"><center>Magic Age Finder</center></header>
+  <hr><br /><br />
+  <div class="container card bg-light border-dark text-center align-middle" style="width: 13rem; height: 10rem;" id="display">
+    <div class="card-header bg-light text-dark">Is this your age?</div>
+    <div class="card-body fs-1 fw-bold" id="num"></div>
+  </div>
+  <br /><br />
+  <div class="buttons align-middle text-center justify-content-evenly">
+    <button class="btn btn-dark border-light ps-3 pe-3 py-2 fs-5 mb-3" id="above">Above</button>
+    <button class="btn btn-light border-dark ps-3 pe-3 py-2 fs-5 mb-3" id="done" data-bs-toggle="modal" data-bs-target="#doneModal">This is my age</button>
+    <button class="btn btn-dark border-light ps-3 pe-3 py-2 fs-5 mb-3" id="below">Below</button>
+  </div>
+  </div>
+  <div class="modal fade" id="doneModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Yayy.. Success !!</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          
+        </div>
+        <div class="modal-footer">
+          <button id="refreshBtn" class="btn btn-dark" data-bs-dismiss="modal">
+            Play again
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Bootstrap JS and jQuery (needed for Bootstrap) -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+  <!-- Confetti.js -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.0.1/dist/confetti.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@tsparticles/confetti@3.0.3/tsparticles.confetti.bundle.min.js"></script>
+  
+  <script>
+    // Function to create confetti effect
+    function popConfetti() {
+      var duration = 10 * 1000; // Duration of confetti animation (10 seconds)
+      var animationEnd = Date.now() + duration;
+
+      // Function to create confetti particles
+      function randomInRange(min, max) {
+        return Math.random() * (max - min) + min;
+      }
+
+      function createConfettiParticle() {
+        var angle = Math.random() * Math.PI * 2;
+        var velocity = randomInRange(200, 400);
+        var color = Math.floor(randomInRange(0, 360));
+        return confetti.create(null, {
+          resize: true,
+          useWorker: true
+        })({
+          particleCount: 1,
+          angle: angle,
+          spread: Math.random() * 70 + 30,
+          origin: {
+            x: Math.random(),
+            y: Math.random() - 0.2
+          },
+          colors: [color],
+          velocity: velocity,
+          decay: 0.95,
+          gravity: 800
+        });
+      }
+
+      // Function to continuously create confetti particles
+      function loop() {
+        var now = Date.now();
+        if (now > animationEnd) {
+          return;
+        }
+        createConfettiParticle();
+        requestAnimationFrame(loop);
+      }
+
+      loop();
+    }
+
+    // Trigger confetti when modal is shown
+    $('#doneModal').on('shown.bs.modal', function() {
+      popConfetti();
+    });
+  </script>
+  <script src="index.js"></script>
+ 
+</body>
+</html>
