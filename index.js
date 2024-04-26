@@ -17,6 +17,7 @@ let lastBelow = 0;
 let nextNum = 0;
 let noOfTries = 0;
 
+// Button event listeners
 // If user press above first, set lastBelow = 64 and lastAbove = lastBelow + 30
 above.addEventListener("click", () => {
   lastBelow = initialNumber;
@@ -44,6 +45,7 @@ winB.addEventListener("click",()=>{
   location.reload()
 })
 
+// Main function to calculate next digit
 function calculateNextNumber(lastAbove, lastBelow) {
   // Calculation & display of nextNum
   const sum = Math.floor(lastAbove + lastBelow);
@@ -63,6 +65,7 @@ function calculateNextNumber(lastAbove, lastBelow) {
   return initialNumber;
 }
 
+// Confetti UI using the confetti.js library
 function popConfetti() {
   function randomInRange(min, max) {
     return Math.random() * (max - min) + min;
@@ -75,7 +78,8 @@ function popConfetti() {
   });
 }
 
-function finalAnswer(initialNumber) {
+// Function to display the final answer
+function finalAnswer() {
   buttons.style.display = "none"
   winB.style.display = "block"
   show.style.display = "block"
