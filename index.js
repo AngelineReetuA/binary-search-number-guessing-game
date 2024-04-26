@@ -1,13 +1,11 @@
 // Accessing DOM
+const buttons = document.getElementById("buttons")
+const show = document.getElementById("show")
 const above = document.getElementById("above");
 const below = document.getElementById("below");
 const num = document.getElementById("num");
 const done = document.getElementById("done")
-const modald = document.getElementById("doneModal").childNodes[1]
-const modalc = modald.childNodes[1]
-const modalb = modalc.childNodes[3]
-const modalf = modalc.childNodes[5]
-const refreshBtn = modalf.childNodes[1]
+const winB = document.getElementById("winB")
 
 // Initial number
 let initialNumber = 64;
@@ -42,7 +40,7 @@ done.addEventListener("click",()=>{
   finalAnswer(initialNumber)
 })
 
-refreshBtn.addEventListener("click",()=>{
+winB.addEventListener("click",()=>{
   location.reload()
 })
 
@@ -65,8 +63,21 @@ function calculateNextNumber(lastAbove, lastBelow) {
   return initialNumber;
 }
 
+function popConfetti() {
+  function randomInRange(min, max) {
+    return Math.random() * (max - min) + min;
+  }
+  confetti({
+    angle: randomInRange(55, 125),
+    spread: randomInRange(50, 70),
+    particleCount: randomInRange(50, 100),
+    origin: { y: 0.6 },
+  });
+}
+
 function finalAnswer(initialNumber) {
-  let myModal = new bootstrap.Modal(document.getElementById('doneModal'), {});
-  modalb.textContent = `Your age is ${initialNumber}`
-  myModal.show()
+  buttons.style.display = "none"
+  winB.style.display = "block"
+  show.style.display = "block"
+  popConfetti()
 }
