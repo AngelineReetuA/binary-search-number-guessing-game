@@ -11,3 +11,6 @@ Note: This game is supposed to be an age guesser and doesn't do well when the nu
 - Javascript
 - Bootstrap
 - HTML
+
+## PLAY IT HERE
+https://angelinereetua.github.io/binary-search-number-guessing-game/
